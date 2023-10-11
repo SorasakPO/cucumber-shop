@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BuyStepdefs {
+public class BuyStepdefs_Sorasak_6210451560 {
 
     private ProductCatalog catalog;
     private Order order;
@@ -19,6 +19,7 @@ public class BuyStepdefs {
 
     @Given("a product {string} with price {float} and stock of {int} exists")
     public void a_product_exists(String name, double price, int stock) {
+
         catalog.addProduct(name, price, stock);
     }
 
@@ -28,9 +29,17 @@ public class BuyStepdefs {
         order.addItem(prod, quantity);
     }
 
+    @Then("the stock of {string} should be {int}")
+    public void the_stock_should_be(String name, int expectedStock) {
+        Product prod = catalog.getProduct(name);
+        assertEquals(expectedStock, prod.getStock());
+    }
+
     @Then("total should be {float}")
     public void total_should_be(double total) {
+
         assertEquals(total, order.getTotal());
     }
+
 }
 
